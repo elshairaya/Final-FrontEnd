@@ -1,0 +1,12 @@
+body {
+  background-color: #f8f9fa;
+}
+
+a {
+  text-decoration: none;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
