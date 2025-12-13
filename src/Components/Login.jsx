@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "../Styles/Login.css";
+import { Card, Form, Button } from "react-bootstrap";
+
 const Login=()=>{
     const[username,setUsername]=useState("");
     const[password,setPassword]=useState("");
@@ -12,41 +14,46 @@ const Login=()=>{
     };
     return(
         <div className="login-page">
-            <div className="text-center">
-                <div className="login-icon mx-auto mb-3">
+            <div className="login-wrapper">
+                <div className="login-icon">
                     <i className="bi bi-shield"></i>
                 </div>
                 <h4 className="fw-bold">HTU Visitor Management</h4>
                 <p className="text-muted mb-4">Sign in to your account</p>
-                <div className="card login-card p-4 shadow">
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-3 text-start">
-                            <label className="form-lable">Username</label>
-                            <input
-                            type="text"
+                <Card className="login-card shadow">
+                    <Card.Body className="p-4">
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3 text-start">
+                                <Form.Label>Username</Form.Label>
+                                <Form.Control
+                                 type="text"
                             className="form-control"
                             placeholder="Enter your username"
                             value={username}
                             onChange={(e)=>setUsername(e.target.value)}
                             required
                             />
-                        </div>
-                        <div className="mb-4 text-start">
-                            <label className="form-lable">Password</label>
-                            <input
-                            type="password"
+                            </Form.Group>
+                            <Form.Group className="mb-4 text-start">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control
+                                 type="password"
                             className="form-control"
                             placeholder="Enter your password"
                             value={password}
                             onChange={(e)=>setPassword(e.target.value)}
                             required
                             />
-                        </div>
-                        <button className="btn-primary w-100 py-2">
-                            Sign In
-                        </button>
-                    </form>
-                </div>
+                            </Form.Group>
+                            <Button
+                            type="submit"
+                            variant="primary"
+                            className="w-100 py-2"                            >
+                             Sign In
+                            </Button>
+                        </Form>
+                    </Card.Body>
+                </Card>
             </div>
         </div>
     );

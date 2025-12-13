@@ -7,6 +7,9 @@
   justify-content: center;
   align-items: center;
 }
+.login-wrapper{
+    text-align: center;
+}
 
 .login-icon{
     width:70px;
@@ -16,6 +19,9 @@
     display:flex;
     align-items:center;
     justify-content: center;
+    font-size:32px;
+    margin:0 auto 16px;
+
 }
 .login-icon i{
     font-size:32px;
@@ -26,15 +32,15 @@
     border-radius: 16px;
     border:none;
 }
-.form-control{
-    border-radius:10px;
-    padding:12px;
-}
-.btn-primary{
+button.btn-primary{
     background-color: crimson;
     border-radius: 12px;
     border:none;
 }
-.btn-primary:hover{
+button.btn.btn-primary:hover,
+button.btn.btn-primary:focus,
+button.btn.btn-primary:active{
     background-color: crimson;
+    border-color:#dc143c;
 }
+
