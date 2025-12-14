@@ -45,7 +45,7 @@ const [users, setUsers] = useState([
 
     return(
         <>
-        <TopNavbar/>
+        <TopNavbar  username="System Administrator" role="Admin"/>
         <div className="admin-dashboard">
             <Sidebar/>
             <main className="admin-content">

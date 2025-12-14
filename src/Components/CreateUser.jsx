@@ -8,7 +8,7 @@ import "../Styles/AdminDashboard.css";//can i use the same style or copy and pas
 const CreateUser=()=>{
     return(
     <>
-    <TopNavbar/>
+    <TopNavbar username="System Administrator" role="Admin"/>
     <div className="admin-dashboard">
         <Sidebar/>
         <main className="admin-content">

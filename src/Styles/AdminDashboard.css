@@ -5,6 +5,7 @@
   padding-left: 0;
   padding-right: 0;
   display: flex;
+  gap: 200px;
   min-height: calc(100vh - 70px); /* below top navbar */
 }
 .admin-content {

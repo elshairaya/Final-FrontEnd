@@ -1,0 +1,26 @@
+.stat-card {
+     width: 13vw;          
+  max-width: 100%;       
+  padding: 10px;
+}
+
+.stat-title {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+.incident {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fff5f5;
+  border: 1px solid #fca5a5;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
