@@ -1,10 +1,11 @@
-import TopNavbar from "../Components/TopNavbar";
-import Sidebar from "../Components/Sidebar";
+import TopNavbar from "./TopNavbar";
+import Sidebar from "./Sidebar";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
+import "../Styles/AdminDashboard.css";
 
 import { Card, Table, Button, Form, Row, Col, Badge } from "react-bootstrap";
-import "../Styles/AdminDashboard.css";
 const AdminDashboard=()=>{
       // Dummy users data (frontend only)
 const [users, setUsers] = useState([
@@ -48,7 +49,7 @@ const [users, setUsers] = useState([
         <div className="admin-dashboard">
             <Sidebar/>
             <main className="admin-content">
-  <div className="admin-inner px-3 px-md-4 px-lg-5 py-3 py-md-4">
+              <div className="px-3 px-md-4 px-lg-5 py-3 py-md-4">
             <div className="admin-header">
                 <div>
             <h4 className="fw-bold">User Management</h4>
@@ -56,7 +57,7 @@ const [users, setUsers] = useState([
                 Add and manage staff and security personnel
             </p>
             </div>
-            <Button variant="primary">
+            <Button as={Link} to="/admin/create" variant="danger">
                 +Add New User
             </Button>
             </div>
@@ -116,12 +117,12 @@ const [users, setUsers] = useState([
                                 <td>{user.created}</td>
                                 <td>
                                     <Button
-  variant="outline-danger"
-  size="sm"
-  onClick={() => handleDelete(user.username)}
->
-  Delete
-</Button>
+                                    variant="outline-danger"
+                                    size="sm"
+                                    onClick={() => handleDelete(user.username)}
+                                    >
+                                    Delete
+                                    </Button>
 
                                 </td>
                             </tr>
