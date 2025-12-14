@@ -6,11 +6,18 @@ const Sidebar=()=>{
       <div className="sidebar">
         <div className="sidebar-title">Admin Menu</div>
             <NavLink 
-            to="/admin" className={({isActive}) =>
+            to="/admin" end className={({isActive}) =>
             isActive ? "sidebar-link active": "sidebar-link"
             }
             >
               User Management
+            </NavLink>
+            <NavLink 
+            to="/admin/create" end className={({isActive}) =>
+            isActive ? "sidebar-link active": "sidebar-link"
+            }
+            >
+              Add Users
             </NavLink>
       </div>
 
