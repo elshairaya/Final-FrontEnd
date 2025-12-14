@@ -1,0 +1,37 @@
+.top-navbar {
+  height: 70px;
+  background: #fff;
+  border-bottom: 1px solid #eaeaea;
+
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 16px;
+  
+}
+
+.logo-box {
+  
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: crimson;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.system-title {
+  
+  font-weight: 600;
+  line-height: 1.2;
+  
+}
+
+.system-subtitle {
+  
+  font-size: 12px;
+  color: #6c757d;
+}

@@ -1,0 +1,41 @@
+.admin-dashboard {
+    max-width: max-content;
+     width: 100vw;          
+  max-width: 100%;       
+  padding-left: 0;
+  padding-right: 0;
+  display: flex;
+  min-height: calc(100vh - 70px); /* below top navbar */
+}
+.admin-content {
+  
+  padding: 32px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.admin-header {
+      
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.admin-header h4 {
+  margin-bottom: 6px;
+}
+.stats-row {
+  margin-bottom: 32px;
+}
+
+.admin-table td {
+       width: 100vw;         
+  max-width: 100%;  
+  padding-left: 0;
+  padding-right: 0;
+  vertical-align: middle;
+}
+.admin-table thead th {
+  background-color: #f7f7f7;
+}

@@ -1,0 +1,32 @@
+.sidebar {
+  width: 240px;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.sidebar-title {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.sidebar-link {
+  display: block;                 
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #333;
+  margin-bottom: 6px;
+
+}
+
+.sidebar-link:hover {
+  background-color: #f7f7f7;
+  color: #000;
+}
+
+.sidebar-link.active {
+    
+  background-color: crimson;
+  color: white;
+}
