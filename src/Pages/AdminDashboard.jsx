@@ -1,5 +1,4 @@
-import TopNavbar from "./TopNavbar";
-import Sidebar from "./Sidebar";
+import Sidebar from "../Components/Sidebar";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -13,6 +12,7 @@ const [users, setUsers] = useState([
       name: "System Administrator",
       email: "admin@htu.edu",
       username: "admin",
+      password:"admin123",
       role: "Admin",
       created: "08/12/2025",
     },
@@ -20,6 +20,7 @@ const [users, setUsers] = useState([
       name: "Sarah Johnson",
       email: "sarah.johnson@htu.edu",
       username: "staff1",
+      password:"staff123",
       role: "Staff",
       created: "08/12/2025",
     },
@@ -27,6 +28,7 @@ const [users, setUsers] = useState([
       name: "Ahmed Hassan",
       email: "ahmed.hassan@htu.edu",
       username: "security1",
+      password:"security123",
       role: "Security",
       created: "08/12/2025",
     },
@@ -45,11 +47,11 @@ const [users, setUsers] = useState([
 
     return(
         <>
-        <TopNavbar  username="System Administrator" role="Admin"/>
         <div className="admin-dashboard">
             <Sidebar/>
+            <Card className="admin-card">
             <main className="admin-content">
-              <div className="px-3 px-md-4 px-lg-5 py-3 py-md-4">
+              <div >
             <div className="admin-header">
                 <div>
             <h4 className="fw-bold">User Management</h4>
@@ -98,6 +100,7 @@ const [users, setUsers] = useState([
                         <tr>
                             <th>Users</th>
                             <th>Username</th>
+                            <th>Password</th>
                             <th>Role</th>
                             <th>Created</th>
                             <th>Actions</th>
@@ -111,6 +114,7 @@ const [users, setUsers] = useState([
                                     <div className="text-muted small">{user.email}</div>
                                 </td>
                                 <td>{user.username}</td>
+                                <td>{user.password}</td>
                                 <td>
                                     <Badge bg="secondary">{user.role}</Badge>
                                 </td>
@@ -132,7 +136,7 @@ const [users, setUsers] = useState([
             </Card>
             </div>
             </main>
-
+</Card>
         </div>
 
         </>

@@ -1,4 +1,3 @@
-import TopNavbar from "../Components/TopNavbar";
 import StaffSidebar from "../Components/StaffSidebar";
 
 import { Card, Row, Col, Badge } from "react-bootstrap";
@@ -8,13 +7,13 @@ import "../Styles/StaffDashboard.css";
 const StaffDashboard=()=>{
     return(
         <>
-        <TopNavbar  username="Sarah Johnson" role="Staff"/>
         <div className="admin-dashboard">
             <StaffSidebar/>
-            <main className="admin-conternt">
-                <div className="  py-3 py-md-4">
+            <Card className="admin-card">
+            <main className="admin-content">
+                <div>
                     <h4 className="fw-boald mb-1">Dashboard</h4>
-                    <p className="text-muted mb-0">
+                    <p className="text-muted mb-3">
                         Overview of visitors activity
                     </p>
                 </div>
@@ -64,8 +63,6 @@ const StaffDashboard=()=>{
                             </Card.Body>
                         </Card>
                         
-            <Card className="shadow-sm">
-              <Card.Body>
                 <h6 className="fw-semibold mb-3">Recent Incidents</h6>
 
                 <div className="incident">
@@ -91,10 +88,8 @@ const StaffDashboard=()=>{
                     </div>
                   </div>
                 </div>
-
-              </Card.Body>
-            </Card>
         </main>
+        </Card>
       </div>
     </>
   );

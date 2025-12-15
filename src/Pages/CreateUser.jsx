@@ -1,4 +1,3 @@
-import TopNavbar from "../Components/TopNavbar";
 import Sidebar from "../Components/Sidebar";
 
 import { Card, Form, Button, Row, Col } from "react-bootstrap";
@@ -8,11 +7,11 @@ import "../Styles/AdminDashboard.css";//can i use the same style or copy and pas
 const CreateUser=()=>{
     return(
     <>
-    <TopNavbar username="System Administrator" role="Admin"/>
     <div className="admin-dashboard">
         <Sidebar/>
+        <Card className="admin-card">
         <main className="admin-content">
-            <div className="shadow-sm create-user-card">
+            <div className="shadow-sm">
                 <Card.Body>
                     <h5>Create New User</h5>
                     <Form>
@@ -24,12 +23,8 @@ const CreateUser=()=>{
                             <Col mb={6}>
                             <Form.Label>Email *</Form.Label>
                             <Form.Control placeholder="Enter Valid Email"/>
-                            </Col>
-                            
-                            
+                            </Col>    
                         </Row>
-
-
                         <Row className="mb-3">
                              <Col mb={6}>
                             <Form.Label>Username *</Form.Label>
@@ -49,6 +44,7 @@ const CreateUser=()=>{
                                 <option>Security</option>
                             </Form.Select>
                             </Col>
+                            <Col></Col>
                         </Row>
                         <div className="d-flex justify-content-end gap-2">
                             <Button as={Link} to="/admin" variant="outline-secondary">
@@ -63,6 +59,7 @@ const CreateUser=()=>{
                 </Card.Body>
             </div>
         </main>
+        </Card>
     </div>
     </>
     );

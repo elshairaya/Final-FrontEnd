@@ -1,15 +1,16 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-
-import Login from "./Components/Login.jsx";
-import AdminDashboard from "./Components/AdminDashboard.jsx";
-import CreateUser from "./Components/CreateUser.jsx";
-import StaffDashboard from "./Components/StaffDashboard.jsx";
+import TopNavbar from "./Components/TopNavbar.jsx";
+import Login from "./Pages/Login.jsx";
+import AdminDashboard from "./Pages/AdminDashboard.jsx";
+import CreateUser from "./Pages/CreateUser.jsx";
+import StaffDashboard from "./Pages/StaffDashboard.jsx";
 
 function App() {
   return (
     <BrowserRouter>
+            <TopNavbar  username="System Administrator" role="Admin"/>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/create" element={<CreateUser/>}/>
         <Route path="*" element={<Link to="/login" />} />
