@@ -20,7 +20,7 @@ const StaffSidebar=()=>{
                 Register Visitor
             </NavLink>
             <NavLink 
-            to="/staff/tracking" end className={({isActive}) =>
+            to="/tracking" end className={({isActive}) =>
             isActive ? "sidebar-link active": "sidebar-link"
             }
             >
