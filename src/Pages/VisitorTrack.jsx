@@ -2,8 +2,9 @@ import { Table, Card, Form, Button, Badge, Row, Col } from "react-bootstrap";
 import "../styles/VisitorTrack.css";
 import"../Styles/AdminDashboard.css"
 import StaffSidebar from "../Components/StaffSidebar";
+import SecuritySidebar from "../Components/SecuritySidebar";
 
-function VisitorTrack(){
+function VisitorTrack({role}){
     const visits = [
   {
     visitor: "Aya Elshair",
@@ -50,7 +51,8 @@ const getStatusVariant = (status) => {
 };
   return(
     <div className="admin-dashboard">
-        <StaffSidebar/>
+    {role === "Security" && <SecuritySidebar />}
+    {role === "Staff" && <StaffSidebar />}
         <Card className="admin-card">
             <main className="admin-content">
                 <h4 className="fw-bold">Visit Tracking</h4>

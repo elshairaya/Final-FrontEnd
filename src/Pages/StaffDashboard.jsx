@@ -4,7 +4,7 @@ import { Card, Row, Col, Badge } from "react-bootstrap";
 import "../Styles/AdminDashboard.css";
 import "../Styles/StaffDashboard.css";
 
-const StaffDashboard=()=>{
+function StaffDashboard(){
     return(
         <>
         <div className="admin-dashboard">

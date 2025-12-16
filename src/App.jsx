@@ -16,7 +16,7 @@ function App() {
         <Route path="/admin/create" element={<CreateUser/>}/>
         <Route path="*" element={<Link to="/login" />} />
         <Route path="/staff" element={<StaffDashboard/>}/>
-        <Route path="/tracking" element={<VisitorTrack/>}/>
+        <Route path="/tracking" element={<VisitorTrack role="Security"/>}/>
       </Routes>
     </BrowserRouter>
   );

@@ -1,7 +1,7 @@
 import { Navbar, Container, Button } from "react-bootstrap";
 import "../Styles/TopNavbar.css";
 
-const TopNavbar = ({username,role}) => {
+function TopNavbar ({username,role}) {
   return (
     <Navbar className="top-navbar" expand="lg">
       <Container fluid className="d-flex align-items-center">
