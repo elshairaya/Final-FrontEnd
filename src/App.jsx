@@ -5,6 +5,7 @@ import AdminDashboard from "./Pages/AdminDashboard.jsx";
 import CreateUser from "./Pages/CreateUser.jsx";
 import StaffDashboard from "./Pages/StaffDashboard.jsx";
 import VisitorTrack from "./Pages/VisitorTrack.jsx";
+import RegisterVisitor from "./Pages/RegisterVisitor.jsx";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="*" element={<Link to="/login" />} />
         <Route path="/staff" element={<StaffDashboard/>}/>
         <Route path="/tracking" element={<VisitorTrack role="Security"/>}/>
+        <Route path="/register" element={<RegisterVisitor/>}/>
       </Routes>
     </BrowserRouter>
   );

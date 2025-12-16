@@ -1,0 +1,12 @@
+.section-title {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.access-code {
+  font-family: monospace;
+  background: #e9f9ee;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+}

@@ -13,7 +13,7 @@ function StaffSidebar(){
                 Dashboard
             </NavLink>
             <NavLink 
-            to="/staff/register" end className={({isActive}) =>
+            to="/register" end className={({isActive}) =>
             isActive ? "sidebar-link active": "sidebar-link"
             }
             >
