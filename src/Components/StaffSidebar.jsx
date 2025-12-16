@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "../Styles/Sidebar.css";
 
-const StaffSidebar=()=>{
+function StaffSidebar(){
     return(
       <div className="sidebar">
         <div className="sidebar-title">Staff Menu</div>

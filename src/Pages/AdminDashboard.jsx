@@ -5,7 +5,7 @@ import { useState } from "react";
 import "../Styles/AdminDashboard.css";
 
 import { Card, Table, Button, Form, Row, Col, Badge } from "react-bootstrap";
-const AdminDashboard=()=>{
+function AdminDashboard(){
       // Dummy users data (frontend only)
 const [users, setUsers] = useState([
     {

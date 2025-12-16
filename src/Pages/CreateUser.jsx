@@ -4,7 +4,7 @@ import { Card, Form, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import "../Styles/AdminDashboard.css";//can i use the same style or copy and paste it for thi page
-const CreateUser=()=>{
+function CreateUser(){
     return(
     <>
     <div className="admin-dashboard">

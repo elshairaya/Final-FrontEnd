@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../Styles/Login.css";
 import { Card, Form, Button } from "react-bootstrap";
 
-const Login=()=>{
+function Login(){
     const[username,setUsername]=useState("");
     const[password,setPassword]=useState("");
     const handleSubmit=(e)=>{
