@@ -1,0 +1,32 @@
+.summary-card {
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid #eaeaea;
+}
+
+.incident-card {
+  border: 1px solid #ffcccc;
+  background: #fff5f5;
+}
+
+.incident-title {
+  font-weight: 600;
+  color: #c62828;
+}
+
+.incident-label {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.auto-badge {
+  font-size: 11px;
+}
+
+.access-code {
+  font-family: monospace;
+  background: #fff;
+  padding: 4px 6px;
+  border-radius: 6px;
+  display: inline-block;
+}

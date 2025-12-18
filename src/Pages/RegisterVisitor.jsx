@@ -28,7 +28,7 @@ function RegisterVisitor(){
     expectedCheckout: "",
     });
     setSuccess(false);
-    setAccessCode("");
+    setAccessCode(""); 
 
   }
   const generateCode=()=>{

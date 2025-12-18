@@ -27,7 +27,7 @@ function StaffSidebar(){
                 Visit Tracking
             </NavLink>
             <NavLink 
-            to="/staff/incidents" end className={({isActive}) =>
+            to="/incidents" end className={({isActive}) =>
             isActive ? "sidebar-link active": "sidebar-link"
             }
             >
