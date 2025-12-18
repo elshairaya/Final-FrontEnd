@@ -6,6 +6,7 @@ import CreateUser from "./Pages/CreateUser.jsx";
 import StaffDashboard from "./Pages/StaffDashboard.jsx";
 import VisitorTrack from "./Pages/VisitorTrack.jsx";
 import RegisterVisitor from "./Pages/RegisterVisitor.jsx";
+import IncidentLog from "./Pages/IncidentLog.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/staff" element={<StaffDashboard/>}/>
         <Route path="/tracking" element={<VisitorTrack role="Security"/>}/>
         <Route path="/register" element={<RegisterVisitor/>}/>
+        <Route path="/incidents" element={<IncidentLog/>}/>
       </Routes>
     </BrowserRouter>
   );
