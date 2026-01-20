@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import StaffSidebar from "../Components/StaffSidebar";
 import { Card, Row, Col, Badge } from "react-bootstrap";
-import "../styles/IncidentLog.css";
+import "../Styles/IncidentLog.css";
 import api from "../API/api";
 
 function IncidentLog() {

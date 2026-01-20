@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Table, Card, Form, Badge, Row, Col } from "react-bootstrap";
-import "../styles/VisitorTrack.css";
 import "../Styles/AdminDashboard.css";
 import StaffSidebar from "../Components/StaffSidebar";
 import SecuritySidebar from "../Components/SecuritySidebar";

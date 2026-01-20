@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import SecuritySidebar from "../Components/SecuritySidebar";
 import { Card, Button, Form, Badge, Row, Col, Alert } from "react-bootstrap";
-import "../styles/SecurityGate.css";
+import "../Styles/SecurityGate.css";
 import api from "../API/api.js";
 
 const SecurityGate = () => {
