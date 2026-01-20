@@ -3,8 +3,29 @@ import StaffSidebar from "../Components/StaffSidebar";
 import { Card, Row, Col, Badge } from "react-bootstrap";
 import "../Styles/AdminDashboard.css";
 import "../Styles/StaffDashboard.css";
+import { useState, useEffect} from "react";
+import api from "../API/api.js";
 
 function StaffDashboard(){
+   const [visits, setVisits] = useState([]);
+   const [incidents, setIncidents] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const visitsResponse = await api.get("/staff/visits");
+                const incidentsResponse = await api.get("/staff/incidents");
+                setVisits(visitsResponse.data);
+                setIncidents(incidentsResponse.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                alert("Failed to fetch data. Please try again later.");
+            }
+        };
+        fetchData();
+    }, []);
+    const activeCount = visits.filter(visit => visit.status === "active").length;
+    const OverdueCount = visits.filter(visit => visit.status === "overdue").length;
+    const totalIncidentsCount = incidents.length;
     return(
         <>
         <div className="admin-dashboard">
@@ -22,25 +43,15 @@ function StaffDashboard(){
                             <Card className="stat-card">
                                 <div>
                                     <div className="stat-title">Active Visitors</div>
-                                    <div className="stat-value">0</div>
+                                    <div className="stat-value">{activeCount}</div>
                                 </div>
                             </Card>
                             </Col>
-                            
-                            <Col mb={3}>
-                            <Card className="stat-card">
-                                <div>
-                                    <div className="stat-title">Completed Today</div>
-                                    <div className="stat-value">1</div>
-                                </div>
-                            </Card>
-                            </Col>
-
                             <Col mb={3}>
                             <Card className="stat-card">
                                 <div>
                                     <div className="stat-title">Overdue</div>
-                                    <div className="stat-value">2</div>
+                                    <div className="stat-value">{OverdueCount}</div>
                                 </div>
                             </Card>
                             </Col>
@@ -49,7 +60,7 @@ function StaffDashboard(){
                             <Card className="stat-card">
                                 <div>
                                     <div className="stat-title">Total Incidents</div>
-                                    <div className="stat-value">2</div>
+                                    <div className="stat-value">{totalIncidentsCount}</div>
                                 </div>
                             </Card>
                             </Col>
@@ -57,37 +68,41 @@ function StaffDashboard(){
                         <Card className="shadow-sm mb-4">
                             <Card.Body>
                                 <h6 className="fw-semibold mb-3">Current Active Visitors</h6>
+                                {activeCount === 0 ? (
                                 <div className="text-muted text-center py-4">
                                     No active visitors at the moment
                                 </div>
+                                ) : (
+                                visits.filter(visit => visit.status === "active").map((visit, incident) => (
+                                    <div key={incident} className="mb-3 pb-3 border-bottom">
+                                    <strong>{visit.visitor_name}</strong> - {visit.host_name}
+                                    </div>
+                                ))
+                                )}
                             </Card.Body>
                         </Card>
                         
                 <h6 className="fw-semibold mb-3">Recent Incidents</h6>
+                {incidents.slice(0,3).map((incident, index) => (
 
-                <div className="incident">
+                <div key={index} className="incident">
                   <Badge bg="danger" className="me-2">!</Badge>
                   <div>
                     <div className="fw-semibold">
-                      Aya Elshair - Visitor did not check out by expected time
+                      {incident.visitorName} - {incident.description}
                     </div>
                     <div className="text-muted small">
-                      Reported: 08/12/2025, 17:33:15
+                      Reported: {new Date(incident.created_at).toLocaleString()}
                     </div>
                   </div>
                 </div>
+                ))}
 
-                <div className="incident">
-                  <Badge bg="danger" className="me-2">!</Badge>
-                  <div>
-                    <div className="fw-semibold">
-                      John Smith - Visitor did not check out by expected time
-                    </div>
-                    <div className="text-muted small">
-                      Reported: 08/12/2025, 17:33:15
-                    </div>
-                  </div>
+               {incidents.length === 0 && (
+                <div className="text-muted text-center py-4">
+                    No incidents reported yet
                 </div>
+               )}
         </main>
         </Card>
       </div>

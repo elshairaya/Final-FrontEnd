@@ -2,6 +2,7 @@ import { useState } from "react";
 import StaffSidebar from "../Components/StaffSidebar";
 import { Card,Form,Button,Alert,Row,Col } from "react-bootstrap";
 import"../Styles/RegisterVisitor.css";
+import api from "../API/api.js";
 
 function RegisterVisitor(){
      const [form, setForm] = useState({
@@ -31,31 +32,26 @@ function RegisterVisitor(){
     setAccessCode(""); 
 
   }
-  const generateCode=()=>{
-    const random=Math.random().toString(36).substring(2.6).toUpperCase();
-    return `HTU-2026-${random}`;
-  }
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
     e.preventDefault();
-    const code=generateCode();
-    setAccessCode(code);
-    setSuccess(true);
-    const payload={
-        fullName:form.fullName,
-        email:form.email,
-        accessCode:code,
-        host:form.host,
+    try{
+    const response=await api.post("/staff/visits",{
+        visitor_name:form.fullName,
+        visitor_email:form.email,
+        phone:form.phone,
+        host_name:form.host,
         purpose:form.purpose,
-        expectedCheckout:form.expectedCheckout,
-    };
-    console.log("Email payload:",payload);
-     // 🔴 FUTURE BACKEND CALL
-  // await fetch("http://localhost:5000/api/send-access-code", {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify(payload),
-  // });
-  }
+        expected_check_out:form.expectedCheckout,
+    });
+    setAccessCode(response.data.access_code);
+    setSuccess(true);
+}catch(error){
+    console.error("Error registering visitor:",error);
+    alert("Failed to register visitor. Please try again later.");
+    return;
+}
+  };
+
 return(
 <div className="admin-dashboard">
     <StaffSidebar/>
@@ -74,7 +70,7 @@ return(
                             <span className="access-code ms-2">{accessCode}</span>
                         </div>
                         <div>
-                            An email contains the access code sent to {form.fullName} successfully!
+                            An email contains the access code sent to {form.email} successfully!
                         </div>
                     </div>
                 </Alert>
@@ -153,7 +149,8 @@ return(
 
                         <div className="d-flex justify-content-end gap-2">
                             <Button variant="outline-secondary" onClick={clearForm}
-                            disabled={!success && Object.values(form).every(v=>v==="")}>
+                            disabled={!success}
+                            >
                                 Clear Form
                             </Button>
                             <Button type="submit" variant="primary">
