@@ -1,16 +1,52 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import "../Styles/Login.css";
+import api from "../API/api.js";
 import { Card, Form, Button } from "react-bootstrap";
 
 function Login(){
+
     const[username,setUsername]=useState("");
     const[password,setPassword]=useState("");
-    const handleSubmit=(e)=>{
+    
+useEffect(() => {
+  const savedUser = localStorage.getItem("user");
+  if (savedUser) {
+    const user = JSON.parse(savedUser);
+    if(user.role === "Admin") {
+      window.location.href = "/admin";
+    } 
+    if(user.role === "Staff") {
+      window.location.href = "/staff";
+    }
+    if(user.role === "Security") {
+      window.location.href = "/gate";
+    }
+  }
+}, []);
+
+    const handleSubmit=async(e)=>{
         e.preventDefault();
-        console.log({
-            username,
-            password
-        });
+        try{
+            const response=await api.post("/auth/login",{username,password});
+            console.log(response.data);
+            localStorage.setItem("user",JSON.stringify(response.data.user));
+            const role=response.data.user.role;
+            if(role === "admin"){
+                window.location.href="/admin";
+            }
+            else if(role === "staff"){
+                window.location.href="/staff";
+            }
+            else if(role === "security"){
+                window.location.href="/gate";
+            }
+            else {
+                alert("Unknown role. Access denied.");
+            }
+        }catch(error){
+            console.error("Login failed:",error);
+            alert("Login failed. Please check your credentials and try again.");
+        }
     };
     return(
         <div className="login-page">
@@ -45,10 +81,11 @@ function Login(){
                             required
                             />
                             </Form.Group>
-                            <Button
+                            <Button onClick={handleSubmit}
                             type="submit"
                             variant="primary"
-                            className="w-100 py-2"                            >
+                            className="w-100 py-2"   
+                            >
                              Sign In
                             </Button>
                         </Form>

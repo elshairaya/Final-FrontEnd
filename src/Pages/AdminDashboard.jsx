@@ -1,50 +1,40 @@
 import Sidebar from "../Components/Sidebar";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api from "../API/api.js";
 
 import "../Styles/AdminDashboard.css";
 
 import { Card, Table, Button, Form, Row, Col, Badge } from "react-bootstrap";
 function AdminDashboard(){
-      // Dummy users data (frontend only)
-const [users, setUsers] = useState([
-    {
-      name: "System Administrator",
-      email: "admin@htu.edu",
-      username: "admin",
-      password:"admin123",
-      role: "Admin",
-      created: "08/12/2025",
-    },
-    {
-      name: "Sarah Johnson",
-      email: "sarah.johnson@htu.edu",
-      username: "staff1",
-      password:"staff123",
-      role: "Staff",
-      created: "08/12/2025",
-    },
-    {
-      name: "Ahmed Hassan",
-      email: "ahmed.hassan@htu.edu",
-      username: "security1",
-      password:"security123",
-      role: "Security",
-      created: "08/12/2025",
-    },
-  ]);
-  const handleDelete = (username) => {
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete this user?"
-  );
-
-  if (!confirmDelete) return;
-
-  setUsers((prevUsers) =>
-    prevUsers.filter((user) => user.username !== username)
-  );
+const [users, setUsers] = useState([]);
+useEffect(() => {
+  const fetchUsers = async () => {
+  try {
+    const response = await api.get("/admin/users");
+    setUsers(response.data);
+    } catch (error) {
+    console.error("Error fetching users:", error);
+    alert("Failed to fetch users. Please try again later.");
+    }
 };
+fetchUsers();
+}, []);
+const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this user?");
+    if (!confirmDelete) return;
 
+    try {
+        await api.delete(`/admin/users/${id}`);
+        setUsers((prev) => prev.filter((user) => user.id !== id));
+    } catch (error) {
+        console.error("Error deleting user:", error);
+        alert("Failed to delete user. Please try again later.");
+    }
+};
+const adminCount = users.filter(user => user.role === 'admin').length;
+const staffCount = users.filter(user => user.role === 'staff').length;
+const securityCount = users.filter(user => user.role === 'security').length;
     return(
         <>
         <div className="admin-dashboard">
@@ -73,7 +63,7 @@ const [users, setUsers] = useState([
                 <Card className="shadow-sm">
                     <Card.Body>
                         <div className="fw-semibold">Admins</div>
-                        <div className="fs-4 mt-2">1</div>
+                        <div className="fs-4 mt-2">{adminCount}</div>
                     </Card.Body>
                 </Card>
                 </Col>
@@ -81,7 +71,7 @@ const [users, setUsers] = useState([
                 <Card className="shadow-sm">
                     <Card.Body>
                         <div className="fw-semibold">Staff</div>
-                        <div className="fs-4 mt-2">1</div>
+                        <div className="fs-4 mt-2">{staffCount}</div>
                     </Card.Body>
                 </Card>
                 </Col>
@@ -89,7 +79,7 @@ const [users, setUsers] = useState([
                 <Card className="shadow-sm">
                     <Card.Body>
                         <div className="fw-semibold">Security</div>
-                        <div className="fs-4 mt-2">1</div>
+                        <div className="fs-4 mt-2">{securityCount}</div>
                     </Card.Body>
                 </Card>
                 </Col>
@@ -100,9 +90,7 @@ const [users, setUsers] = useState([
                         <tr>
                             <th>Users</th>
                             <th>Username</th>
-                            <th>Password</th>
                             <th>Role</th>
-                            <th>Created</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -114,16 +102,14 @@ const [users, setUsers] = useState([
                                     <div className="text-muted small">{user.email}</div>
                                 </td>
                                 <td>{user.username}</td>
-                                <td>{user.password}</td>
                                 <td>
                                     <Badge bg="secondary">{user.role}</Badge>
                                 </td>
-                                <td>{user.created}</td>
                                 <td>
                                     <Button
                                     variant="outline-danger"
                                     size="sm"
-                                    onClick={() => handleDelete(user.username)}
+                                    onClick={() => handleDelete(user.id)}
                                     >
                                     Delete
                                     </Button>
@@ -131,15 +117,15 @@ const [users, setUsers] = useState([
                                 </td>
                             </tr>
                         ))}
-                    </tbody>
-                </Table>
-            </Card>
+                        </tbody>
+                    </Table>
+                </Card>
             </div>
-            </main>
-</Card>
-        </div>
+         </main>
+     </Card>
+ </div>
 
-        </>
-    );
+</>
+);
 }
 export default AdminDashboard;
