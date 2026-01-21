@@ -5,61 +5,64 @@ import "../Styles/SecurityGate.css";
 import api from "../API/api.js";
 
 const SecurityGate = () => {
-  const [mode, setMode] = useState("checkin"); // checkin | checkout
+  const [mode, setMode] = useState("checkin");
   const [code, setCode] = useState("");
-  const [result, setResult] = useState(null);
+  const [visit, setVisit] = useState(null);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [visits, setVisits] = useState([]);
-useEffect(() => {
+
+  const formatDate = (d) => (d ? new Date(d).toLocaleString() : "-");
+
   const fetchVisits = async () => {
     try {
-      const res = await api.get("/staff/visits");
+      const res = await api.get("/security/visits");
       setVisits(res.data);
     } catch (err) {
       console.error("Failed to load visits:", err);
     }
   };
 
-  fetchVisits();
-}, []);
+  useEffect(() => {
+    fetchVisits();
+  }, []);
 
   const validateCode = async () => {
-      if(!code) return;
-      setLoading(true);
-      setResult(null);
-      
-      try {
-       const endpoint=
-       mode === "checkin"
-       ? "/security/check-in"
-       : "/security/check-out";
-       const response = await api.post(endpoint, { access_code: code.trim(), });
-       setResult({
-        status: "success",
-        visits: response.data.visits||response.data,
-       });
-      } catch (error) {
-        console.error("Error validating code:", error);
-        const message = error.response?.data?.message || "Invalid access code";
-        setResult({ status: "error", message, });
-      }
-      finally {
-        setLoading(false);
-      }
+    if (!code) return;
+
+    setLoading(true);
+    setError("");
+    setVisit(null);
+
+    try {
+      const endpoint =
+        mode === "checkin"
+          ? "/security/check-in"
+          : "/security/check-out";
+
+      const res = await api.put(endpoint, {
+        access_code: code.trim(),
+      });
+
+      setVisit(res.data.visit); // ✅ direct & simple
+      setCode("");
+      fetchVisits(); // refresh stats
+    } catch (err) {
+      setError(err.response?.data?.message || "Invalid access code");
+    } finally {
+      setLoading(false);
+    }
   };
- const activeCount = visits.filter(
-  (visit) => visit.status === "active"
-).length;
 
-const overdueCount = visits.filter(
-  (visit) => visit.status === "overdue"
-).length;
-
-const checkedOutToday = visits.filter((v) => {
-  if (!v.check_out_time) return false;
-  const today = new Date().toDateString();
-  return new Date(v.check_out_time).toDateString() === today;
-}).length;
+  const activeCount = visits.filter(v => v.status === "active").length;
+  const overdueCount = visits.filter(v => v.status === "overdue").length;
+  const checkedOutToday = visits.filter(v => {
+    if (!v.check_out_time) return false;
+    return (
+      new Date(v.check_out_time).toDateString() ===
+      new Date().toDateString()
+    );
+  }).length;
 
   return (
     <div className="admin-dashboard">
@@ -100,45 +103,48 @@ const checkedOutToday = visits.filter((v) => {
                   onChange={(e) => setCode(e.target.value)}
                   placeholder="HTU-XXXXXX"
                 />
-                <Button onClick={validateCode} disabled={loading}>{loading ? "Loading..." : "Validate"}</Button>
+                <Button onClick={validateCode} disabled={loading}>
+                  {loading ? "Loading..." : "Validate"}
+                </Button>
               </div>
             </Form>
           </Card.Body>
         </Card>
 
-        {/* Result */}
-        {result?.status === "success" && (
+        {/* Error */}
+        {error && <Alert variant="danger">{error}</Alert>}
+
+        {/* Success */}
+        {visit && (
           <Alert variant="success">
             <div className="fw-semibold mb-2">
-             {mode === "checkin" ? "Check-In Successful" : "Check-Out Successful"}
+              {mode === "checkin"
+                ? "Check-In Successful"
+                : "Check-Out Successful"}
             </div>
 
             <Row>
               <Col md={6}>
                 <div className="info-label">Visitor Name</div>
-                <div>{result.visits.visitor_name}</div>
+                <div>{visit.visitor_name}</div>
               </Col>
               <Col md={6}>
                 <div className="info-label">Host</div>
-                <div>{result.visits.host_name}</div>
+                <div>{visit.host_name}</div>
               </Col>
             </Row>
 
             <Row className="mt-2">
               <Col md={6}>
                 <div className="info-label">Purpose</div>
-                <div>{result.visits.purpose}</div>
+                <div>{visit.purpose}</div>
               </Col>
               <Col md={6}>
                 <div className="info-label">Expected Check-Out</div>
-                <div>{new Date(result.visits.expected_check_out).toLocaleString()}</div>
+                <div>{formatDate(visit.expected_check_out)}</div>
               </Col>
             </Row>
           </Alert>
-        )}
-
-        {result?.status === "error" && (
-          <Alert variant="danger">{result.message}</Alert>
         )}
 
         {/* Stats */}
